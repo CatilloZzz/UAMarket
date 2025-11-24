@@ -1,0 +1,177 @@
+﻿:root{
+  /* Gama basada en Pantone 3200 (aproximación) */
+  --pantone-3200: #008C95;
+  --pantone-3200-light: #dff3f4;
+  --pantone-3200-dark: #006A71;
+
+  --bg: #f7f8f9;
+  --surface: #ffffff;
+  --muted: #6b7280;
+  --text: #111827;
+  --radius: 12px;
+  --shadow-soft: 0 6px 24px rgba(6,15,22,0.06);
+  --glass: rgba(255,255,255,0.6);
+  --max-width: 1200px;
+  --font-sans: "Libre Franklin", "Franklin Gothic Medium", Arial, sans-serif;
+}
+
+/* Reset / base */
+* { box-sizing: border-box; }
+html,body { height:100%; }
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--font-sans);
+  -webkit-font-smoothing:antialiased;
+  -moz-osx-font-smoothing:grayscale;
+  line-height: 1.45;
+  -webkit-font-feature-settings: "ss01" 1;
+}
+
+/* Layout container */
+.container {
+  max-width: var(--max-width);
+  margin: 0 auto;
+  padding-left: 1rem;
+  padding-right: 1rem;
+}
+
+/* Header */
+header nav {
+  background: var(--surface);
+  border-bottom: 1px solid rgba(15,23,42,0.04);
+  box-shadow: none;
+}
+.navbar-brand {
+  color: var(--pantone-3200);
+  font-weight: 800;
+  letter-spacing: -0.02em;
+}
+
+/* Minimal hero / section spacing */
+main {
+  padding-top: 1.5rem;
+  padding-bottom: 2.5rem;
+}
+
+/* Cards / products */
+.card {
+  background: var(--surface);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow-soft);
+  overflow: hidden;
+  border: 1px solid rgba(6,15,22,0.03);
+}
+.card img {
+  display:block;
+  width:100%;
+  height:220px;
+  object-fit:cover;
+}
+.card-body {
+  padding: 1rem;
+}
+
+/* Grid helpers */
+.grid {
+  display: grid;
+  gap: 1rem;
+}
+.grid-cols-1 { grid-template-columns: 1fr; }
+@media(min - width:640px){ .sm\\:grid-cols-2 { grid-template-columns: repeat(2,1fr); } }
+@media(min - width:768px){ .md\\:grid-cols-3 { grid-template-columns: repeat(3,1fr); } }
+@media(min - width:1024px){ .lg\\:grid-cols-4 { grid-template-columns: repeat(4,1fr); } }
+
+/* Buttons */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  background: var(--pantone-3200);
+  color: #fff;
+  border: none;
+  padding: 0.6rem 1rem;
+  border-radius: 999px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: transform .12s ease, box-shadow .12s ease, background .12s;
+  text-decoration: none;
+}
+.btn:hover { transform: translateY(-2px); box-shadow: 0 8px 20px rgba(0,140,149,0.12); }
+.btn-outline {
+  background: transparent;
+  border: 1px solid rgba(6,15,22,0.06);
+  color: var(--text);
+}
+
+/* Inputs / search */
+.input {
+  width:100%;
+  padding: .65rem .75rem;
+  border-radius: 999px;
+  border: 1px solid rgba(6,15,22,0.06);
+  background: rgba(255,255,255,0.9);
+  outline: none;
+}
+.input:focus {
+  box-shadow: 0 0 0 6px rgba(0,140,149,0.06);
+  border-color: var(--pantone-3200-dark);
+}
+
+/* Category pills */
+.pill {
+  background: var(--surface);
+  border: 1px solid rgba(6,15,22,0.04);
+  padding: .6rem .7rem;
+  border-radius: 999px;
+  display:inline-flex;
+  gap:.6rem;
+  align-items:center;
+  color:var(--muted);
+}
+.pill .icon { color: var(--pantone-3200); }
+
+/* Toast */
+#toastContainer {
+  position: fixed;
+  right: 1rem;
+  bottom: 1rem;
+  display:flex;
+  flex-direction: column;
+  gap: .5rem;
+  z-index: 60;
+}
+.toast {
+  background: rgba(15,23,42,0.95);
+  color: #fff;
+  padding: .6rem 1rem;
+  border-radius: 10px;
+  display:inline-flex;
+  gap:.5rem;
+  align-items:center;
+  box-shadow: 0 10px 30px rgba(6,15,22,0.2);
+}
+
+/* Footer */
+footer { background: transparent; color: var(--muted); }
+
+/* Utilities */
+.text-brand { color: var(--pantone-3200) !important; }
+.bg-brand { background: var(--pantone-3200) !important; }
+.rounded-xl { border-radius: 1rem; }
+.hover-scale { transition: transform .18s ease-in-out; }
+.hover-scale:hover { transform: scale(1.02); }
+
+/* Accessibility and small fixes */
+a { color: inherit; text-decoration: none; }
+a:hover { text-decoration: underline; color: var(--pantone-3200-dark); }
+.visually-hidden { position:absolute; width:1px; height:1px; padding:0; margin:-1px; overflow:hidden; clip:rect(0 0 0 0); white-space:nowrap; border:0; }
+
+/* Small responsive tweaks */
+@media (min-width: 768px) {
+  body { font-size: 16px; }
+}
+@media (max-width: 767px) {
+  .container { padding-left: .75rem; padding-right: .75rem; }
+}

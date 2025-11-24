@@ -1,0 +1,273 @@
+﻿@page
+@{
+    Layout = "_Layout";
+
+    var categoriesData = new[]
+    {
+        new { Name = "Libros UAM", Icon = "fa-book", Count = 120 },
+        new { Name = "Electrónicos", Icon = "fa-laptop", Count = 85 },
+        new { Name = "Tutorías UAM", Icon = "fa-chalkboard-teacher", Count = 30 },
+        new { Name = "Accesorios", Icon = "fa-headphones", Count = 45 },
+        new { Name = "Transporte", Icon = "fa-car", Count = 15 },
+        new { Name = "Roomies", Icon = "fa-users", Count = 10 },
+        new { Name = "Comida", Icon = "fa-utensils", Count = 50 }
+    };
+
+    var productsData = new[]
+    {
+        new {
+            Id = 1,
+            Title = "Libro de Anatomía Gray - Casi Nuevo",
+            Price = 45,
+            Currency = "$",
+            Location = "Universidad Americana UAM - Medicina",
+            Image = "https://images.unsplash.com/photo-1544947950-fa07a98d237f?auto=format&fit=crop&q=80&w=400",
+            Category = "Libros UAM",
+            IsNew = false,
+            Rating = 5.0,
+            Seller = "Ana M. (Medicina)"
+        },
+        new {
+            Id = 2,
+            Title = "Calculadora Científica HP 50g",
+            Price = 80,
+            Currency = "$",
+            Location = "Universidad Americana UAM - Ingeniería",
+            Image = "https://images.unsplash.com/photo-1587145820266-a5951ee6f620?auto=format&fit=crop&q=80&w=400",
+            Category = "Electrónicos",
+            IsNew = false,
+            Rating = 4.5,
+            Seller = "Carlos R. (Ingeniería)"
+        },
+        new {
+            Id = 3,
+            Title = "MacBook Air M1 - Urge Venta",
+            Price = 750,
+            Currency = "$",
+            Location = "Universidad Americana UAM - Cafetería",
+            Image = "https://images.unsplash.com/photo-1611186871348-b1ce696e52c9?auto=format&fit=crop&q=80&w=400",
+            Category = "Electrónicos",
+            IsNew = false,
+            Rating = 4.9,
+            Seller = "Luis G. (Diseño)"
+        },
+        new {
+            Id = 4,
+            Title = "Bata de Laboratorio Talla M",
+            Price = 15,
+            Currency = "$",
+            Location = "Universidad Americana UAM - Edificio A",
+            Image = "https://images.unsplash.com/photo-1584634731339-252c581abfc5?auto=format&fit=crop&q=80&w=400",
+            Category = "Accesorios",
+            IsNew = true,
+            Rating = 4.8,
+            Seller = "Sofia P. (Odontología)"
+        },
+        new {
+            Id = 5,
+            Title = "Tutorías de Cálculo I",
+            Price = 10,
+            Currency = "$/hr",
+            Location = "Universidad Americana UAM - Biblioteca",
+            Image = "https://images.unsplash.com/photo-1635070041078-e363dbe005cb?auto=format&fit=crop&q=80&w=400",
+            Category = "Tutorías UAM",
+            IsNew = true,
+            Rating = 5.0,
+            Seller = "Ing. Roberto"
+        },
+        new {
+            Id = 6,
+            Title = "Teclado iPad Pro",
+            Price = 120,
+            Currency = "$",
+            Location = "Universidad Americana UAM - Parqueo",
+            Image = "https://images.unsplash.com/photo-1587829745563-84b706c0f3e3?auto=format&fit=crop&q=80&w=400",
+            Category = "Electrónicos",
+            IsNew = false,
+            Rating = 4.2,
+            Seller = "Mario J. (Derecho)"
+        },
+        new {
+            Id = 7,
+            Title = "Busco Roomie - Zona UAM",
+            Price = 200,
+            Currency = "$",
+            Location = "Universidad Americana UAM - Cercanías",
+            Image = "https://images.unsplash.com/photo-1522708323590-d24dbb6b0267?auto=format&fit=crop&q=80&w=400",
+            Category = "Roomies",
+            IsNew = true,
+            Rating = 0.0,
+            Seller = "Fernanda L."
+        },
+        new {
+            Id = 8,
+            Title = "Honda Civic 2018",
+            Price = 14500,
+            Currency = "$",
+            Location = "Universidad Americana UAM - Entrada",
+            Image = "https://images.unsplash.com/photo-1605816988089-8d68c7804f02?auto=format&fit=crop&q=80&w=400",
+            Category = "Transporte",
+            IsNew = false,
+            Rating = 4.7,
+            Seller = "Jorge D. (Admin)"
+        }
+    };
+
+    var jsonOptions = new System.Text.Json.JsonSerializerOptions
+    {
+        PropertyNamingPolicy = System.Text.Json.JsonNamingPolicy.CamelCase
+    };
+    var jsonCategories = System.Text.Json.JsonSerializer.Serialize(categoriesData, jsonOptions);
+    var jsonProducts = System.Text.Json.JsonSerializer.Serialize(productsData, jsonOptions);
+}
+
+<main class="flex-grow container mx-auto px-4 py-8">
+    <section class="mb-10">
+        <div class="flex justify-between items-center mb-4">
+            <h2 class="text-lg font-bold text-gray-800">Categorías UAM</h2>
+            <a href="#" class="text-brand text-sm font-semibold hover:underline">Ver todas</a>
+        </div>
+        <div class="flex gap-4 overflow-x-auto scrollbar-hide py-2" id="categoriesContainer">
+            @foreach (var cat in categoriesData)
+            {
+                <div class="flex flex-col items-center gap-2 min-w-[90px] cursor-pointer group" onclick="filterByCategory('@cat.Name')">
+                    <div class="w-16 h-16 rounded-full bg-white border border-gray-200 flex items-center justify-center text-gray-500 text-2xl shadow-sm group-hover:border-brand group-hover:text-brand group-hover:shadow-md transition duration-300">
+                        <i class="fas @cat.Icon"></i>
+                    </div>
+                    <span class="text-xs font-bold text-gray-600 group-hover:text-brand transition text-center w-full truncate px-1">@cat.Name</span>
+                </div>
+            }
+        </div>
+    </section>
+
+    <div class="bg-gradient-to-r from-brand to-brandDark rounded-2xl p-8 md:p-12 text-white mb-12 flex items-center justify-between shadow-xl shadow-brand/20 relative overflow-hidden">
+        <div class="relative z-10 max-w-xl">
+            <span class="bg-white/20 text-white px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wider mb-4 inline-block">Comunidad UAM</span>
+            <h1 class="text-3xl md:text-5xl font-extrabold mb-4 leading-tight">El mercado de la<br/>Universidad Americana.</h1>
+            <p class="text-lg opacity-90 mb-8 font-light">Compra y vende libros, equipos y más dentro del campus de la UAM.</p>
+            <button onclick="document.getElementById('productsSection').scrollIntoView({behavior: 'smooth'})" class="bg-white text-brand font-bold px-8 py-3 rounded-full hover:bg-gray-100 transition shadow-md">
+                Explorar Ofertas
+            </button>
+        </div>
+        <div class="hidden md:block text-9xl text-white opacity-10 absolute right-10 -bottom-10 transform rotate-12">
+            <i class="fas fa-university"></i>
+        </div>
+    </div>
+
+    <section id="productsSection">
+        <div class="flex flex-col sm:flex-row justify-between items-end mb-6 gap-4">
+            <div>
+                <h2 class="text-2xl font-extrabold text-gray-900">Publicaciones Recientes</h2>
+                <p class="text-gray-500 text-sm mt-1">Artículos disponibles en Universidad Americana UAM</p>
+            </div>
+            <div class="flex gap-2 w-full sm:w-auto">
+                 <select class="bg-white border border-gray-200 rounded-lg px-3 py-2 text-sm font-medium text-gray-600 outline-none focus:border-brand w-full sm:w-auto">
+                    <option>Relevancia</option>
+                    <option>Más recientes</option>
+                    <option>Menor Precio</option>
+                </select>
+            </div>
+        </div>
+
+        <div id="productGrid" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+            <!-- JS Rendering -->
+        </div>
+        
+        <div id="emptyState" class="hidden text-center py-20">
+            <div class="text-6xl text-gray-200 mb-4"><i class="fas fa-search"></i></div>
+            <h3 class="text-xl font-bold text-gray-700">No encontramos nada en la UAM</h3>
+            <p class="text-gray-500">Intenta buscar en otra categoría o revisa más tarde.</p>
+        </div>
+    </section>
+</main>
+
+@section Scripts {
+    <script>
+        const categories = @Html.Raw(jsonCategories);
+        const products = @Html.Raw(jsonProducts);
+
+        function renderProducts(items) {
+            const grid = document.getElementById('productGrid');
+            const emptyState = document.getElementById('emptyState');
+            grid.innerHTML = '';
+            if (!items || items.length === 0) {
+                emptyState.classList.remove('hidden');
+                return;
+            }
+            emptyState.classList.add('hidden');
+
+            grid.innerHTML = items.map(product => `
+                <div class="bg-white rounded-xl border border-gray-100 overflow-hidden hover-scale shadow-soft group cursor-pointer h-full flex flex-col">
+                    <div class="relative h-48 overflow-hidden bg-gray-100 flex-shrink-0">
+                        <img src="${product.image}" alt="${product.title}" class="w-full h-full object-cover group-hover:opacity-95 transition">
+                        ${product.isNew ? `<span class="absolute top-2 left-2 bg-brand text-white text-[10px] font-bold px-2 py-1 rounded uppercase tracking-wide shadow-sm">Nuevo</span>` : ''}
+                        <button class="absolute top-2 right-2 w-8 h-8 bg-white/90 rounded-full flex items-center justify-center text-gray-400 hover:text-red-500 transition backdrop-blur-sm shadow-sm" onclick="event.stopPropagation(); showToast('Guardado en favoritos')">
+                            <i class="far fa-heart"></i>
+                        </button>
+                    </div>
+                    <div class="p-4 flex flex-col flex-grow">
+                        <h3 class="font-bold text-gray-800 text-base leading-tight line-clamp-2 min-h-[2.5rem]">${product.title}</h3>
+                        <div class="mb-2 flex items-baseline gap-1">
+                            <span class="text-2xl font-extrabold text-brand">${product.currency}${product.price}</span>
+                        </div>
+                        <div class="flex items-center justify-between mb-3">
+                            <div class="flex items-center text-xs text-gray-500 truncate mr-2">
+                                <i class="far fa-user mr-1"></i> ${product.seller}
+                            </div>
+                            <div class="flex items-center gap-1 text-xs text-yellow-400 flex-shrink-0">
+                                <i class="fas fa-star"></i>
+                                <span class="text-gray-600 font-semibold">${product.rating > 0 ? product.rating : 'N/A'}</span>
+                            </div>
+                        </div>
+                        <div class="mt-auto">
+                            <div class="flex items-start text-[10px] sm:text-xs text-brandDark font-medium bg-brandLight/50 py-1.5 px-2 rounded mb-4 leading-tight">
+                                <i class="fas fa-map-marker-alt mr-1.5 mt-0.5 flex-shrink-0"></i>
+                                <span class="line-clamp-2">${product.location}</span>
+                            </div>
+                            <button onclick="event.stopPropagation(); showToast('Chat iniciado con ${product.seller.split(' ')[0]}')" class="w-full border-2 border-brand text-brand font-bold py-2 rounded-lg hover:bg-brand hover:text-white transition text-sm">
+                                Contactar
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function filterByCategory(categoryName) {
+            const filtered = products.filter(p => p.category === categoryName);
+            renderProducts(filtered);
+            document.getElementById('productsSection').scrollIntoView({ behavior: 'smooth' });
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            const search = document.getElementById('searchInput');
+            if (search) {
+                search.addEventListener('input', (e) => {
+                    const query = e.target.value.toLowerCase();
+                    const filtered = products.filter(p =>
+                        p.title.toLowerCase().includes(query) ||
+                        p.category.toLowerCase().includes(query) ||
+                        p.location.toLowerCase().includes(query) ||
+                        p.seller.toLowerCase().includes(query)
+                    );
+                    renderProducts(filtered);
+                });
+            }
+            renderProducts(products);
+        });
+
+        function showToast(message) {
+            const container = document.getElementById('toastContainer') || document.body;
+            const toast = document.createElement('div');
+            toast.className = 'toast-enter bg-gray-800 text-white px-6 py-3 rounded-lg shadow-lg flex items-center gap-3 text-sm font-medium';
+            toast.innerHTML = `<i class="fas fa-check-circle text-brand"></i> ${message}`;
+            container.appendChild(toast);
+            setTimeout(() => {
+                toast.style.opacity = '0';
+                toast.style.transform = 'translateY(10px)';
+                toast.style.transition = 'all 0.3s ease';
+                setTimeout(() => toast.remove(), 300);
+            }, 3000);
+        }
+    </script>
+}
